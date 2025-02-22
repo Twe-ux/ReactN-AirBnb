@@ -1,7 +1,7 @@
 import { TextInput, StyleSheet } from "react-native";
 import colors from "../assets/styles/colors";
 
-export default function InputLarge({ placeholder, inputMode }) {
+export default function InputLarge({ placeholder, setState }) {
   return (
     <TextInput
       style={styles.textInput}
@@ -11,6 +11,7 @@ export default function InputLarge({ placeholder, inputMode }) {
       multiline={true}
       numberOfLines={10}
       maxLength={250}
+      onChangeText={setState}
     />
   );
 }

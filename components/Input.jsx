@@ -1,7 +1,14 @@
 import { TextInput, StyleSheet } from "react-native";
 import colors from "../assets/styles/colors";
 
-export default function Input({ placeholder, autoComplete, inputMode, secure, autoCapitalize }) {
+export default function Input({
+  placeholder,
+  autoComplete,
+  inputMode,
+  secure,
+  autoCapitalize,
+  setState,
+}) {
   return (
     <TextInput
       style={styles.textInput}
@@ -10,6 +17,7 @@ export default function Input({ placeholder, autoComplete, inputMode, secure, au
       autoCapitalize={autoCapitalize}
       autoComplete={autoComplete}
       secureTextEntry={secure}
+      onChangeText={setState}
     />
   );
 }

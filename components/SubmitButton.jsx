@@ -1,9 +1,9 @@
-import { Text, Pressable, StyleSheet } from 'react-native';
-import colors from '../assets/styles/colors';
+import { Text, Pressable, StyleSheet } from "react-native";
+import colors from "../assets/styles/colors";
 
-export default function SubmitButton({ text }) {
+export default function SubmitButton({ text, onPressFunc, isLoading }) {
   return (
-    <Pressable style={styles.button}>
+    <Pressable style={styles.button} onPress={onPressFunc} disabled={isLoading}>
       <Text style={styles.text}>{text}</Text>
     </Pressable>
   );
@@ -12,16 +12,16 @@ export default function SubmitButton({ text }) {
 const styles = StyleSheet.create({
   button: {
     height: 60,
-    width: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "50%",
+    alignItems: "center",
+    justifyContent: "center",
     borderColor: colors.pink,
     borderWidth: 3,
     borderRadius: 60,
   },
   text: {
     color: colors.grey,
-    fontWeight: '500',
+    fontWeight: "500",
     fontSize: 18,
   },
 });
