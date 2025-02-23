@@ -1,15 +1,42 @@
 import { createContext } from "react";
 
-/** Context used for Authentification. */
-const AuthContext = createContext({});
-//   play() {
-//     console.warn("Invoked the default PetContext.play implementation.");
-//   },
+const AuthContext = createContext({
+  //Default value state
+  userId: null,
+  userToken: null,
+  userParams: null,
 
-const AuthProvider = ({ children }) => {
-  // states
-  // fonctions
-  return <AuthContext.Provider value={{ state, func }}>{children}</AuthContext.Provider>;
-};
+  //Error function
+  login() {
+    console.warn("Invoked the default AuthContext.login implementation.");
+  },
+  logout() {
+    console.warn("Invoked the default AuthContext.logout implementation.");
+  },
+});
 
-export { AuthContext };
+// const AuthProvider = ({ children }) => {
+//   const [userToken, setUserToken] = useState(null);
+//   const [userId, setUserId] = useState(null);
+
+//   const login = (id, token) => {
+//     setUserId(id);
+//     setUserToken(token);
+//     alert("Login sucess");
+//   };
+
+//   const logout = () => {
+//     setUserId(null);
+//     setUserToken(null);
+//     alert("Logout done");
+//   };
+
+//   return (
+//     <AuthContext.Provider value={{ userId, userToken, login, logout }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+// export default AuthProvider;
+
+export default AuthContext;

@@ -1,5 +1,8 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import AuthContext from "../../context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { SafeAreaView, View, Pressable, ActivityIndicator } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -20,21 +23,27 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const { login, onHold } = useContext(AuthContext);
+
   const fetchApiDatas = async () => {
-    const dataParams = {
-      email,
-      password,
-    };
-
-    await new Promise((r) => setTimeout(r, 5000));
-
+    // await new Promise((r) => setTimeout(r, 5000));
     try {
       const response = await axios.post(
         "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/user/log_in",
-        dataParams
+        { email, password }
       );
-
       // console.log(response.data);
+      const userToken = response.data.token;
+      const userId = response.data.id;
+
+      const userParams = JSON.stringify({
+        id: userId,
+        token: userToken,
+      });
+      // console.log("user", userParams);
+      await AsyncStorage.setItem("user", userParams);
+      // console.log(userId, userToken);
+      login(userId, userToken);
     } catch (error) {
       if (error.response.data.error === "Unauthorized") {
         return "bad-password";
@@ -46,24 +55,22 @@ const Login = () => {
 
   const handleSignIn = async () => {
     if (email && password) {
-      console.log("ok");
+      // console.log("ok");
       // Ici, le code pour envoyer les données à l'API
       // const result = onSignInRequest(email, password);
       setIsLoading(true);
       const result = await fetchApiDatas();
-      // console.log(result);
       setIsLoading(false);
-      // login();
 
       if (result == "not-email" || result == "bad-password") {
         alert("Adresse mail ou mot de passe éronné");
-      } else alert("Votre inscription est bien enregistrée");
+      }
     } else {
       alert("Veuillez entrer un email et un mot de passe");
     }
   };
 
-  return (
+  return onHold ? (
     <SafeAreaView className="flex-1">
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -107,6 +114,12 @@ const Login = () => {
           <RedirectLink text={"No account ? Register !"} screen={"/auth/signup"} />
         </View>
       </KeyboardAwareScrollView>
+    </SafeAreaView>
+  ) : (
+    <SafeAreaView className="flex-1">
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" color={colors.pink} />
+      </View>
     </SafeAreaView>
   );
 };
