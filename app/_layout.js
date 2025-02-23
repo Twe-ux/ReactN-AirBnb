@@ -33,7 +33,7 @@ export default function RootLayout() {
     // alert("Logout done");
   };
 
-  console.log("test", onHold);
+  // console.log("test", onHold);
 
   useEffect(() => {
     if (userToken && userId) {

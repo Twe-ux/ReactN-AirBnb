@@ -70,7 +70,13 @@ const Login = () => {
     }
   };
 
-  return !onHold ? (
+  return onHold ? (
+    <SafeAreaView className="flex-1">
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" color={colors.pink} />
+      </View>
+    </SafeAreaView>
+  ) : (
     <SafeAreaView className="flex-1">
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -114,12 +120,6 @@ const Login = () => {
           <RedirectLink text={"No account ? Register !"} screen={"/auth/signup"} />
         </View>
       </KeyboardAwareScrollView>
-    </SafeAreaView>
-  ) : (
-    <SafeAreaView className="flex-1">
-      <View className="flex-1 items-center justify-center">
-        <ActivityIndicator size="large" color={colors.pink} />
-      </View>
     </SafeAreaView>
   );
 };
