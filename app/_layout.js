@@ -7,10 +7,9 @@ export default function RootLayout() {
   const [userToken, setUserToken] = useState(null);
   const [userId, setUserId] = useState(null);
   const [onHold, setOnHold] = useState(false);
-  // console.log(isWait);
 
   const localStorageParams = async () => {
-    await new Promise((r) => setTimeout(r, 2000));
+    // await new Promise((r) => setTimeout(r, 2000));
     const stored = await AsyncStorage.getItem("user");
     const user = JSON.parse(stored);
     if (user.id && user.token) {
@@ -18,7 +17,6 @@ export default function RootLayout() {
       setUserToken(user.token);
     }
     setOnHold(true);
-    // console.log(isWait);
   };
   localStorageParams();
 
@@ -31,10 +29,11 @@ export default function RootLayout() {
   const logout = () => {
     setUserId(null);
     setUserToken(null);
+    setOnHold(false);
     // alert("Logout done");
   };
 
-  // console.log("test", isConnected);
+  console.log("test", onHold);
 
   useEffect(() => {
     if (userToken && userId) {

@@ -70,7 +70,7 @@ const Login = () => {
     }
   };
 
-  return onHold ? (
+  return !onHold ? (
     <SafeAreaView className="flex-1">
       <KeyboardAwareScrollView
         contentContainerStyle={{
