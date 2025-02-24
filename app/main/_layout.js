@@ -1,12 +1,13 @@
 import { Tabs } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import colors from "../../assets/styles/colors";
 
 export default function MainLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "red",
+        tabBarActiveTintColor: colors.pink,
         headerShown: false,
       }}>
       <Tabs.Screen

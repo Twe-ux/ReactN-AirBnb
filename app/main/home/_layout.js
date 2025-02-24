@@ -1,11 +1,27 @@
 import { Stack } from "expo-router";
+import colors from "../../../assets/styles/colors";
+import { StatusLogo } from "../../../components";
 
 export default function HomeLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: false,
-      }}
-    />
+        headerShown: true,
+        headerBackButtonDisplayMode: "minimal",
+        headerTintColor: colors.pink,
+      }}>
+      <Stack.Screen
+        name="home"
+        options={{
+          headerTitle: () => <StatusLogo />,
+        }}
+      />
+      <Stack.Screen
+        name="room"
+        options={{
+          headerTitle: () => <StatusLogo />,
+        }}
+      />
+    </Stack>
   );
 }

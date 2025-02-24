@@ -12,6 +12,7 @@ import { Input, InputLarge, Logo, Title, SubmitButton, RedirectLink } from "../.
 
 //Hooks
 import { useTogglePasswordVisibility } from "../../hook/useTogglePasswordVisibility";
+import { router } from "expo-router";
 
 export default function Signup() {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
@@ -38,7 +39,7 @@ export default function Signup() {
         "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/user/sign_up",
         dataParams
       );
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       // console.log(error.response.data.error);
       if (error.response.data.error === "This username already has an account.") {
@@ -65,6 +66,7 @@ export default function Signup() {
         alert("Cette adresse e-mail est déjà prise.");
       } else {
         alert("Votre inscription est bien enregistrée");
+        router.navigate("/main/home/home");
       }
     } else {
       alert("Veuillez remplir tous les champs");

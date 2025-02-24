@@ -1,7 +1,7 @@
-import { Text } from 'react-native';
+import { View } from "react-native";
 
 const Room = () => {
-  return <Text>Room</Text>;
+  return <View className="p-5"></View>;
 };
 
 export default Room;

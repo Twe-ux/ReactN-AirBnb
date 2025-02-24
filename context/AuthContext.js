@@ -15,28 +15,4 @@ const AuthContext = createContext({
   },
 });
 
-// const AuthProvider = ({ children }) => {
-//   const [userToken, setUserToken] = useState(null);
-//   const [userId, setUserId] = useState(null);
-
-//   const login = (id, token) => {
-//     setUserId(id);
-//     setUserToken(token);
-//     alert("Login sucess");
-//   };
-
-//   const logout = () => {
-//     setUserId(null);
-//     setUserToken(null);
-//     alert("Logout done");
-//   };
-
-//   return (
-//     <AuthContext.Provider value={{ userId, userToken, login, logout }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-// export default AuthProvider;
-
 export default AuthContext;
