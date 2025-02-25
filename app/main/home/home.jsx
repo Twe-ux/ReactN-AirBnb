@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, ActivityIndicator, View, Image, Text } from "react-native";
 
 import colors from "../../../assets/styles/colors";
-import RatingValue from "../../../components/RatingValue";
+
+import {
+  InfoContainer,
+  PictureAppartement,
+  RatingValue,
+  PictureUser,
+} from "../../../components/index";
 
 const Home = () => {
   const [data, setData] = useState("");
@@ -29,7 +35,7 @@ const Home = () => {
     announcementList();
   }, []);
 
-  // console.log(data[0].ratingValue);
+  // console.log(data);
 
   return isLoading ? (
     <SafeAreaView className="flex-1">
@@ -54,6 +60,8 @@ const Home = () => {
         }}
         keyExtractor={(item) => String(item._id)}
         renderItem={({ item }) => {
+          console.log(item.photos[0].url);
+
           return (
             <Link href={"/main/home/room"}>
               <View className="w-full p-5">
@@ -67,14 +75,16 @@ const Home = () => {
                     <Text className="text-xl text-white">{item.price} €</Text>
                   </View>
                 </View>
-
+                {/* <PictureAppartement item={item} /> */}
+                {/* <InfoContainer item={item} /> */}
                 <View className="h-24 flex-row items-end justify-between">
-                  <View className="mb-2 gap-4">
-                    <Text numberOfLines={1} ellipsizeMode="tail" className="w-72 text-xl">
+                  <View className="mb-2 gap-2">
+                    <Text numberOfLines={1} ellipsizeMode="tail" className="w-80 text-xl">
                       {item.title}
                     </Text>
-                    <RatingValue ratingValue={item.ratingValue} reviews={item.reviews} />
+                    <RatingValue item={item} />
                   </View>
+                  {/* <PictureUser item={item} /> */}
                   <Image
                     className="h-20 w-20 rounded-full"
                     source={{ uri: `${item.user.account.photo.url}` }}

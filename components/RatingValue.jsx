@@ -1,8 +1,10 @@
 import { Text, View } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+
+// Style
 import colors from "../assets/styles/colors";
 
-export default function RatingValue({ ratingValue, reviews }) {
+export default function RatingValue({ item }) {
   const stars = [];
   for (let i = 0; i < 5; i++) {
     // if (i < ratingValue) {
@@ -13,7 +15,7 @@ export default function RatingValue({ ratingValue, reviews }) {
 
     // Get the icon to show.
     let name = "staro";
-    if (i < ratingValue) {
+    if (i < item.ratingValue) {
       name = "star";
     }
     // Render the icon.
@@ -21,11 +23,10 @@ export default function RatingValue({ ratingValue, reviews }) {
   }
 
   return (
-    <View className="flex-row items-center gap-2">
+    <View className="flex-row items-center gap-4">
       <View className="flex-row">{stars}</View>
-
       <Text className="text-xl" style={{ color: colors.mediumGrey }}>
-        {reviews} reviews
+        {item.reviews} reviews
       </Text>
     </View>
   );
