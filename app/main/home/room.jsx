@@ -5,6 +5,7 @@ import { useLocalSearchParams } from "expo-router";
 import colors from "../../../assets/styles/colors";
 import Octicons from "@expo/vector-icons/Octicons";
 import Swiper from "react-native-swiper";
+import MapView, { Marker } from "react-native-maps";
 
 import { PictureAppartement, InfoContainer } from "../../../components/index";
 
@@ -12,21 +13,25 @@ const Room = () => {
   const [data, setData] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [fullDescription, setFullDescription] = useState(false);
-
-  console.log(data.photos);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  console.log(data);
 
   const { id } = useLocalSearchParams();
 
   useEffect(() => {
     const announcementRoom = async () => {
-      // await new Promise((r) => setTimeout(r, 5000));
+      // await new Promise((r) => setTimeout(r, 200));
       try {
         setIsLoading(true);
         const response = await axios.get(
           `https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms/${id}`
         );
         setData(response.data);
+
         setIsLoading(false);
+        setLatitude(response.data.location[1]);
+        setLongitude(response.data.location[0]);
       } catch (error) {
         console.error(error);
       }
@@ -85,7 +90,24 @@ const Room = () => {
           )}
         </View>
       </View>
-      <View className="flex-1"></View>
+
+      <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+        }}>
+        <Marker
+          coordinate={{
+            latitude: latitude,
+            longitude: longitude,
+          }}
+          // title={marker.title}
+          // description={marker.description}
+        />
+      </MapView>
     </View>
   );
 };
