@@ -1,7 +1,15 @@
 import { Text, View, Image, StyleSheet } from "react-native";
 
 export default function PictureAppartement({ item, room }) {
-  return (
+  return room ? (
+    <View>
+      <Image
+        source={{ uri: `${item.url}` }}
+        resizeMode="cover"
+        style={room ? styles.roomPict : styles.homePict}
+      />
+    </View>
+  ) : (
     <View>
       <Image
         source={{ uri: `${item.photos[0].url}` }}

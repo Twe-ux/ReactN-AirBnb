@@ -1,8 +1,10 @@
 import axios from "axios";
-import { View, Image, Text, SafeAreaView, ActivityIndicator, Pressable } from "react-native";
+import { View, Text, SafeAreaView, ActivityIndicator, Pressable, StyleSheet } from "react-native";
 import { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 import colors from "../../../assets/styles/colors";
+import Octicons from "@expo/vector-icons/Octicons";
+import Swiper from "react-native-swiper";
 
 import { PictureAppartement, InfoContainer } from "../../../components/index";
 
@@ -11,11 +13,13 @@ const Room = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [fullDescription, setFullDescription] = useState(false);
 
+  console.log(data.photos);
+
   const { id } = useLocalSearchParams();
 
   useEffect(() => {
     const announcementRoom = async () => {
-      // await new Promise((r) => setTimeout(r, 1000));
+      // await new Promise((r) => setTimeout(r, 5000));
       try {
         setIsLoading(true);
         const response = await axios.get(
@@ -37,36 +41,61 @@ const Room = () => {
       </View>
     </SafeAreaView>
   ) : (
-    <View>
-      <PictureAppartement item={data} room />
-      <View className="gap-5 p-5">
-        <InfoContainer item={data} />
-        {fullDescription ? (
-          <>
-            <Text numberOfLines={0}>{data.description}</Text>
-            <Pressable
-              className="gap-2"
-              onPress={() => {
-                setFullDescription(false);
-              }}>
-              <Text className="font-bold">Show less - </Text>
-            </Pressable>
-          </>
-        ) : (
-          <>
-            <Text numberOfLines={3}>{data.description}</Text>
-            <Pressable
-              className="gap-2"
-              onPress={() => {
-                setFullDescription(true);
-              }}>
-              <Text className="font-bold">Show more + </Text>
-            </Pressable>
-          </>
-        )}
+    <View className="flex-1">
+      <Swiper style={styles.wrapper} activeDotColor={colors.pink}>
+        {data.photos.map((pict, id) => {
+          return <PictureAppartement key={pict.picture_id} item={pict} room />;
+        })}
+      </Swiper>
+      <View className="">
+        <View className="gap-5 p-5">
+          <InfoContainer item={data} />
+          {fullDescription ? (
+            <>
+              <Text numberOfLines={0}>{data.description}</Text>
+              <Pressable
+                className="gap-2"
+                onPress={() => {
+                  setFullDescription(false);
+                }}>
+                <View className="flex-row items-center gap-2">
+                  <Text className="text-xl" style={styles.textShow}>
+                    Show less
+                  </Text>
+                  <Octicons style={styles.textShow} name="triangle-up" size={30} />
+                </View>
+              </Pressable>
+            </>
+          ) : (
+            <>
+              <Text numberOfLines={3}>{data.description}</Text>
+              <Pressable
+                className="gap-2"
+                onPress={() => {
+                  setFullDescription(true);
+                }}>
+                <View className="flex-row items-center gap-2">
+                  <Text className="text-xl" style={styles.textShow}>
+                    Show more
+                  </Text>
+                  <Octicons style={styles.textShow} name="triangle-down" size={30} />
+                </View>
+              </Pressable>
+            </>
+          )}
+        </View>
       </View>
+      <View className="flex-1"></View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  textShow: {
+    fontWeight: "bold",
+    color: colors.grey,
+  },
+  wrapper: {},
+});
 
 export default Room;
