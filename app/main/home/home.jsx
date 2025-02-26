@@ -1,7 +1,15 @@
 import axios from "axios";
-import { Link } from "expo-router";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { SafeAreaView, FlatList, ActivityIndicator, View, Image, Text } from "react-native";
+import {
+  SafeAreaView,
+  FlatList,
+  ActivityIndicator,
+  View,
+  Image,
+  Text,
+  Pressable,
+} from "react-native";
 
 import colors from "../../../assets/styles/colors";
 
@@ -21,7 +29,7 @@ const Home = () => {
       // await new Promise((r) => setTimeout(r, 500));
 
       try {
-        setIsLoading(false);
+        setIsLoading(true);
         const response = await axios.get(
           "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms"
         );
@@ -60,39 +68,24 @@ const Home = () => {
         }}
         keyExtractor={(item) => String(item._id)}
         renderItem={({ item }) => {
-          console.log(item.photos[0].url);
+          // console.log(item.photos[0].url);
 
           return (
-            <Link href={"/main/home/room"}>
+            // <Link href={"/main/home/room"}>
+            <Pressable
+              onPress={() => {
+                router.push({
+                  pathname: "/main/home/room",
+                  params: { id: item._id },
+                });
+              }}>
               <View className="w-full p-5">
-                <View>
-                  <Image
-                    className="h-52 w-full"
-                    source={{ uri: `${item.photos[0].url}` }}
-                    resizeMode="cover"
-                  />
-                  <View className="absolute bottom-4 h-14 w-24 items-center justify-center bg-slate-800">
-                    <Text className="text-xl text-white">{item.price} €</Text>
-                  </View>
-                </View>
-                {/* <PictureAppartement item={item} /> */}
-                {/* <InfoContainer item={item} /> */}
-                <View className="h-24 flex-row items-end justify-between">
-                  <View className="mb-2 gap-2">
-                    <Text numberOfLines={1} ellipsizeMode="tail" className="w-80 text-xl">
-                      {item.title}
-                    </Text>
-                    <RatingValue item={item} />
-                  </View>
-                  {/* <PictureUser item={item} /> */}
-                  <Image
-                    className="h-20 w-20 rounded-full"
-                    source={{ uri: `${item.user.account.photo.url}` }}
-                    resizeMode="cover"
-                  />
-                </View>
+                <PictureAppartement item={item} />
+                <InfoContainer item={item} />
               </View>
-            </Link>
+            </Pressable>
+
+            // </Link>
           );
         }}
       />
