@@ -5,7 +5,7 @@ export default function PictureAppartement({ item, room }) {
     <View>
       <Image
         source={{ uri: `${item.url}` }}
-        resizeMode="cover"
+        resizeMode="stretch"
         style={room ? styles.roomPict : styles.homePict}
       />
     </View>
@@ -26,10 +26,10 @@ export default function PictureAppartement({ item, room }) {
 const styles = StyleSheet.create({
   homePict: {
     width: "100%",
-    height: 208,
+    height: 180,
   },
   roomPict: {
     width: "100%",
-    height: 260,
+    height: "100%",
   },
 });

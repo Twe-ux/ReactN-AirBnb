@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import colors from "../../../assets/styles/colors";
 import { StatusLogo } from "../../../components";
+import { router } from "expo-router";
 
 export default function HomeLayout() {
   return (

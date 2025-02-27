@@ -1,12 +1,13 @@
 import axios from "axios";
-import { View, Text, SafeAreaView, ActivityIndicator, Pressable, StyleSheet } from "react-native";
+import Swiper from "react-native-swiper";
 import { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
+import MapView, { Marker } from "react-native-maps";
+import { View, Text, SafeAreaView, ActivityIndicator, Pressable, StyleSheet } from "react-native";
+//Style
 import colors from "../../../assets/styles/colors";
 import Octicons from "@expo/vector-icons/Octicons";
-import Swiper from "react-native-swiper";
-import MapView, { Marker } from "react-native-maps";
-
+//Components
 import { PictureAppartement, InfoContainer } from "../../../components/index";
 
 const Room = () => {
@@ -15,7 +16,7 @@ const Room = () => {
   const [fullDescription, setFullDescription] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  console.log(data);
+  // console.log(data);
 
   const { id } = useLocalSearchParams();
 
@@ -90,24 +91,23 @@ const Room = () => {
           )}
         </View>
       </View>
-
-      <MapView
-        style={{ flex: 1 }}
-        initialRegion={{
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        }}>
-        <Marker
-          coordinate={{
+      <View className="flex-1 p-2">
+        <MapView
+          style={{ flex: 1 }}
+          initialRegion={{
             latitude: latitude,
             longitude: longitude,
-          }}
-          // title={marker.title}
-          // description={marker.description}
-        />
-      </MapView>
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
+          }}>
+          <Marker
+            coordinate={{
+              latitude: latitude,
+              longitude: longitude,
+            }}
+          />
+        </MapView>
+      </View>
     </View>
   );
 };

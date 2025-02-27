@@ -7,6 +7,7 @@ export default function StatusLogo() {
 
 const styles = StyleSheet.create({
   logo: {
+    marginBottom: 5,
     width: 35,
     height: 35,
   },

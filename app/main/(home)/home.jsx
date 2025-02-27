@@ -1,24 +1,11 @@
 import axios from "axios";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  FlatList,
-  ActivityIndicator,
-  View,
-  Image,
-  Text,
-  Pressable,
-} from "react-native";
+import { SafeAreaView, FlatList, ActivityIndicator, View, Pressable } from "react-native";
 
 import colors from "../../../assets/styles/colors";
 
-import {
-  InfoContainer,
-  PictureAppartement,
-  RatingValue,
-  PictureUser,
-} from "../../../components/index";
+import { InfoContainer, PictureAppartement } from "../../../components/index";
 
 const Home = () => {
   const [data, setData] = useState("");
@@ -68,14 +55,11 @@ const Home = () => {
         }}
         keyExtractor={(item) => String(item._id)}
         renderItem={({ item }) => {
-          // console.log(item.photos[0].url);
-
           return (
-            // <Link href={"/main/home/room"}>
             <Pressable
               onPress={() => {
                 router.push({
-                  pathname: "/main/home/room",
+                  pathname: "./room",
                   params: { id: item._id },
                 });
               }}>
@@ -84,8 +68,6 @@ const Home = () => {
                 <InfoContainer item={item} />
               </View>
             </Pressable>
-
-            // </Link>
           );
         }}
       />
